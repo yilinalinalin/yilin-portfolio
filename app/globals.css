@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "@fontsource/montaga";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --font-serif: "Montaga", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+
+  --color-canvas: #f5f5f5;
+  --color-ink: #1c1c1c;
+  --color-muted: #858585;
+  --color-subtle: #a3a3a3;
+  --color-rule: #d3d3d3;
+  --color-well: #ebebeb;
+  --color-teal-tile: #d3e3e3;
+  --color-accent: #0051ff;
+}
+
+html {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+::selection {
+  background: #cfe6e3;
+}
+
+
+/* Map window: calm, slightly desaturated OpenStreetMap tiles. */
+.map-soft {
+  filter: saturate(0.45) brightness(1.04) contrast(0.92);
+}
+
+/* Song note: little music notes drifting up from the guinea pig. */
+@keyframes float-note {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(14px, -46px) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+
+
+/* Page-transition loader: two guinea pig frames shown in turn, with a little bounce in step */
+.pig-frame-b { opacity: 0; }
+.pig-run { animation: pig-hop 0.36s ease-in-out infinite; }
+.pig-run .pig-frame-a { animation: pig-frame 0.36s steps(1, end) infinite; }
+.pig-run .pig-frame-b { animation: pig-frame 0.36s steps(1, end) -0.18s infinite; }
+@keyframes pig-frame { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes pig-hop { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-3px); } 50% { transform: translateY(0); } 75% { transform: translateY(-1px); } }
+
+/* The white pig: a little squish per push, and each dropping rolls out from behind it in turn */
+[class^="pig-pellet-"] { opacity: 0; }
+.pig-poop .pig-poop-body { transform-origin: 30% 100%; animation: pig-push 1.6s ease-in-out infinite; }
+.pig-poop .pig-pellet-1 { animation: pellet-1 1.6s ease-out infinite; }
+.pig-poop .pig-pellet-2 { animation: pellet-2 1.6s ease-out infinite; }
+.pig-poop .pig-pellet-3 { animation: pellet-3 1.6s ease-out infinite; }
+@keyframes pig-push {
+  0%, 8%, 22%, 33%, 47%, 58%, 72%, 100% { transform: scale(1, 1); }
+  14%, 39%, 64% { transform: scale(1.02, 0.95); }
+}
+@keyframes pellet-1 {
+  0%, 14% { opacity: 0; transform: translate(-6px, -7px); }
+  22%, 90% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+@keyframes pellet-2 {
+  0%, 39% { opacity: 0; transform: translate(-9px, -7px); }
+  47%, 90% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+@keyframes pellet-3 {
+  0%, 64% { opacity: 0; transform: translate(-6px, -3px); }
+  72%, 90% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+
+/* Printing / PDF export: show content that hasn't scrolled into view yet, keep tile colors, drop the dock. */
+@media print {
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  nav {
+    display: none !important;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
