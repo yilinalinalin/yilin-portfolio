@@ -8,7 +8,7 @@ export type Media = {
   aspect: string;
   /** Optional poster frame for videos. */
   poster?: string;
-  /** Videos only: play muted on a loop with no controls, like a moving image. */
+  /** No longer needed: every video now plays muted on a loop while on screen. Kept so existing entries still type-check. */
   autoplay?: boolean;
   /** "contain" shows the whole image or video instead of cropping it to fill the frame. */
   fit?: "cover" | "contain";

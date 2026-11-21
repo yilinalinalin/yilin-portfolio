@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Media } from "@/content/types";
+import { AutoVideo } from "./AutoVideo";
 
 export function MediaFrame({ media, className = "" }: { media: Media; className?: string }) {
   const contain = media.fit === "contain";
@@ -23,35 +24,24 @@ export function MediaFrame({ media, className = "" }: { media: Media; className?
         style={{ aspectRatio: media.aspect, padding: media.padding, backgroundColor: media.background ?? "#fff" }}
         className={`w-full overflow-hidden rounded-[8px] ${className}`}
       >
-        <video
+        <AutoVideo
           className="h-full w-full rounded-[4px] object-contain"
           src={media.src}
           poster={media.poster}
-          aria-label={media.label}
-          controls={!media.autoplay}
-          autoPlay={media.autoplay}
-          loop={media.autoplay}
-          playsInline
-          muted
-          preload={media.autoplay ? "auto" : "metadata"}
+          label={media.label}
         />
       </div>
     );
   }
   if (media.type === "video") {
     return (
-      <video
+      // Every video plays muted on a loop while it's on screen.
+      <AutoVideo
         style={style}
         className={`w-full rounded-[8px] ${contain ? "object-contain" : "bg-well object-cover"} ${className}`}
         src={media.src}
         poster={media.poster}
-        aria-label={media.label}
-        controls={!media.autoplay}
-        autoPlay={media.autoplay}
-        loop={media.autoplay}
-        playsInline
-        muted
-        preload={media.autoplay ? "auto" : "metadata"}
+        label={media.label}
       />
     );
   }
