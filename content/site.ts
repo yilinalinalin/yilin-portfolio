@@ -24,7 +24,7 @@ export type ProjectSummary = {
   poster?: string;
   /** Set false to hide "Read more" (e.g. work in progress). */
   hasCaseStudy: boolean;
-  /** Keep off the homepage grid and the next-project rotation (e.g. a page linked from Recognitions). */
+  /** Keep off the homepage product list and the next-project rotation (e.g. a page shown as an award card). */
   unlisted?: boolean;
 };
 
@@ -77,20 +77,54 @@ export const projects: ProjectSummary[] = [
 ];
 
 export type Recognition = {
+  /** Card title: the project that was recognized. */
+  title: string;
   /** The award or event, e.g. "Red Dot Design Award". */
   award: string;
-  /** Placement or category, e.g. "Winner · Interface Design". */
-  result: string;
-  /** The project it recognized. */
-  project: string;
-  year: string;
-  /** Link to the award page or project entry; leave empty until you have it. */
+  /** Small tag on the card, e.g. "Red Dot · 2024". */
+  meta: string;
+  description: string;
+  /** Square cover; leave null to show a dark tile with the award name until you have one. */
+  cover: string | null;
+  /** Color behind a cover that should show whole instead of cropped (e.g. a transparent PNG). */
+  coverBackground?: string;
+  /** A page on this site ("/work/...") or an outside link; leave empty for no link. */
   href: string;
 };
 
-// Homepage "Recent Recognitions". Replace the [bracketed] values with the real details.
+// Awards, shown in the homepage grid under the "Awards" tag.
 export const recognitions: Recognition[] = [
-  { award: "Red Dot Design Award", result: "Winner · Brands & Communication Design", project: "Globbbe, a gamified edutainment app", year: "2024", href: "https://www.red-dot.org/project/globbbe-72907" },
-  { award: "A' Design Award", result: "Silver", project: "The Game of Equality", year: "2024", href: "" },
-  { award: "PitchBook Data × NYU Product Hackathon", result: "3rd Prize", project: "DataSense", year: "2024", href: "/work/datasense" },
+  {
+    title: "Globbbe",
+    award: "Red Dot Design Award",
+    meta: "Red Dot/2024",
+    description: "Red Dot winner, Brands & Communication Design. A gamified edutainment app that helps children explore the world.",
+    cover: "/images/covers/globbbe.jpg",
+    href: "https://www.red-dot.org/project/globbbe-72907",
+  },
+  {
+    title: "The Game of Equality",
+    award: "A' Design Award",
+    meta: "A' Design/2024",
+    description: "A' Design Award, Silver.",
+    cover: "/images/covers/game-of-equality.jpg",
+    href: "",
+  },
+  {
+    title: "DataSense",
+    award: "PitchBook Data × NYU Product Hackathon",
+    meta: "Hackathon/2024",
+    description: "3rd Prize at the PitchBook Data × NYU Product Hackathon: faster bulk data entry and entity matching, pitched in 24 hours.",
+    cover: "/images/covers/datasense.jpg",
+    href: "/work/datasense",
+  },
+];
+
+// Glass logo bubbles floating around the hero illustration. Positions are percentages of the
+// avatar's box (negative = outside it); `size` is the width in px on desktop (phones use ~70%).
+export const bubbles: { name: string; src: string; size: number; top: string; left?: string; right?: string; float: number }[] = [
+  { name: "TikTok", src: "/images/bubbles/tiktok.webp", size: 68, top: "4%", left: "-36%", float: 6.2 },
+  { name: "Phia", src: "/images/bubbles/phia.webp", size: 82, top: "-6%", right: "-42%", float: 7.4 },
+  { name: "Y Combinator", src: "/images/bubbles/ycombinator.webp", size: 62, top: "46%", right: "-36%", float: 5.6 },
+  { name: "Micron", src: "/images/bubbles/micron.webp", size: 60, top: "44%", left: "-32%", float: 6.8 },
 ];

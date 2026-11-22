@@ -109,3 +109,12 @@ body {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: none; }
 }
+
+/* Hero logo bubbles: a slow bob with a slight tilt; smaller on phones */
+.bubble { --bubble-scale: 0.7; }
+@media (min-width: 768px) { .bubble { --bubble-scale: 1; } }
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+@media (prefers-reduced-motion: reduce) { .bubble { animation: none !important; } }

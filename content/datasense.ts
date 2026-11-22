@@ -1,7 +1,7 @@
 import type { CaseStudy } from "./types";
 
 // Hackathon project, rebuilt from the DataSense page on the old Framer site.
-// Linked from the homepage's "Recent Recognitions"; kept out of the Selected Projects grid.
+// Shown on the homepage as an award card (under the "Awards" tag); kept out of the product list.
 
 export const datasense: CaseStudy = {
   slug: "datasense",
