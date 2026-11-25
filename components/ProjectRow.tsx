@@ -140,6 +140,8 @@ export function WorkGrid({ items }: { items: WorkItem[] }) {
   const ordered = active ? [...items.filter((i) => i.tag === active), ...items.filter((i) => i.tag !== active)] : items;
   return (
     <>
+      {/* Chips only make sense with more than one kind of project in the grid. */}
+      {new Set(items.map((i) => i.tag)).size > 1 && (
       <div role="group" aria-label="Highlight projects by type" className="flex flex-wrap gap-2.5">
         {TAGS.map((t) => {
           const empty = t.id !== null && !items.some((i) => i.tag === t.id);
@@ -164,6 +166,7 @@ export function WorkGrid({ items }: { items: WorkItem[] }) {
           );
         })}
       </div>
+      )}
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 md:gap-y-16">
         {ordered.map((i) => (
           // `layout` slides each card to its new spot when a tag reorders the grid.

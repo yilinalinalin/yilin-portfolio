@@ -4,6 +4,10 @@ import { WorkGrid, type WorkItem } from "@/components/ProjectRow";
 import { Reveal } from "@/components/Reveal";
 import { SongNote } from "@/components/SongNote";
 
+// Award cards (Globbbe, The Game of Equality, DataSense) are hidden for now; set to true to show
+// them again, which also brings back the All / Products / Awards chips above the grid.
+const SHOW_AWARDS = false;
+
 // Products (the case studies) first, then awards. Creative work gets its own tag once it's added.
 const work: WorkItem[] = [
   ...projects
@@ -20,7 +24,7 @@ const work: WorkItem[] = [
       href: p.hasCaseStudy ? `/work/${p.slug}` : undefined,
       inProgress: !p.hasCaseStudy,
     })),
-  ...recognitions.map((r) => ({
+  ...(SHOW_AWARDS ? recognitions : []).map((r) => ({
     key: `award-${r.title}`,
     tag: "awards" as const,
     title: r.title,
