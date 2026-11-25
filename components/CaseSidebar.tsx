@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { TransitionLink } from "./PageTransition";
 
 type Item = { id: string; label: string; group?: string };
 type Entry = Item | { label: string; children: Item[] };
@@ -156,6 +157,16 @@ export function CaseSidebar({
   return (
     <aside className="hidden md:block">
       <div className="sticky top-[160px]">
+        {/* Back to the homepage grid, with the usual page transition */}
+        <TransitionLink
+          href="/"
+          className="group mb-6 inline-flex items-center gap-1.5 text-[14px] text-subtle transition-colors hover:text-ink"
+        >
+          <span aria-hidden className="transition-transform duration-300 group-hover:-translate-x-0.5">
+            ←
+          </span>
+          All projects
+        </TransitionLink>
         <p className="font-serif text-[16px]">{title}</p>
         <p className="mt-2 text-[14px] leading-[1.35] text-subtle">{blurb}</p>
         <ul className="mt-[22px] space-y-[10px] text-[14px]">
